@@ -8,7 +8,7 @@
 import Foundation
 
 /// `APIService` is the final class for handling API requests and downloads.
-public final class APIService {
+public class APIService {
     /// `perform` method is responsible for performing a given API request.
     ///
     /// - Parameters:
@@ -31,7 +31,7 @@ public final class APIService {
     ///    }
     /// }
     /// ```
-    func perform<T: APIRequest, R: Decodable>(request: T, response: R.Type, completion: @escaping (Result<R, APIError>) -> Void) {
+    public func perform<T: APIRequest, R: Decodable>(request: T, response: R.Type, completion: @escaping (Result<R, APIError>) -> Void) {
         let url = buildURL(with: request)
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
@@ -106,7 +106,7 @@ public final class APIService {
     ///    }
     /// }
     /// ```
-    func downloadFile(with request: APIRequest, to destinationURL: URL, completion: @escaping (Result<URL, APIError>) -> Void) {
+    public func downloadFile(with request: APIRequest, to destinationURL: URL, completion: @escaping (Result<URL, APIError>) -> Void) {
         let url = buildURL(with: request)
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
@@ -148,8 +148,8 @@ public final class APIService {
     }
 }
 
-extension APIService {
-    public func buildURL<T: APIRequest>(with request: T) -> URL {
+public extension APIService {
+    func buildURL<T: APIRequest>(with request: T) -> URL {
         var components = URLComponents(url: request.baseURL.appendingPathComponent(request.path), resolvingAgainstBaseURL: false)
         
         if let queryParams = request.queryParams {
@@ -159,7 +159,7 @@ extension APIService {
         return components?.url ?? request.baseURL.appendingPathComponent(request.path)
     }
     
-    public func createBody(with multipartData: [MultipartData], boundary: String) -> Data {
+    func createBody(with multipartData: [MultipartData], boundary: String) -> Data {
         var body = Data()
         
         for multipart in multipartData {

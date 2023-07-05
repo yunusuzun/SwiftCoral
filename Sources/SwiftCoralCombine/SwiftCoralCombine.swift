@@ -10,7 +10,7 @@ import SwiftCoral
 import Foundation
 
 /// `APIService` is the final class for handling API requests and downloads using Combine.
-extension APIService {
+public extension APIService {
     
     /// `combinePerform` method is responsible for performing a given API request.
     ///
