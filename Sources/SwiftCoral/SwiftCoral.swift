@@ -9,6 +9,9 @@ import Foundation
 
 /// `APIService` is the final class for handling API requests and downloads.
 public class APIService {
+    
+    public init() { }
+    
     /// `perform` method is responsible for performing a given API request.
     ///
     /// - Parameters:
